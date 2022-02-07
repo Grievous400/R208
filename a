@@ -32,19 +32,23 @@ def question2(nom):
     #j'enlève la première ligne
     fichier.readline()
 
-
+    etudiant={}
     for ligne in fichier:  # pour toute les lignes du fichiers
 
         ligne = ligne.rstrip("\n\r")  # supprime les espace entre les lignes et supprime les caractères spéciaux
+
         liste =ligne.split(";")
+        dictionnaire = {} #création d'un dictionnaire pour chaque ligne du fichier
+
+        dictionnaire["nom"]=liste[2]
+        dictionnaire["prenom"]=liste[3]
+        dictionnaire["note"]=liste[5]
+        if liste[1] in etudiant:
+            etudiant[liste[1]] = dictionnaire
+            print("c'est un doublon",liste[1],liste[2])
+        etudiant[liste[1]] = dictionnaire
 
 
-        dictionnaire = {
-            "nom":liste[2],
-            "prenom" :liste[3],
-            "note":liste[4],
-        }
-        print(dictionnaire["nom"],dictionnaire["prenom"])
 
 
 
@@ -55,11 +59,11 @@ def question2(nom):
         #    print(elt)
 
 
-
     fichier.close()  # pas oublier de fermer le fichier quand on l'ouvre
-
-
+    return etudiant
 #####################################################################################
 if __name__ =='__main__':
     #question1("C:\\tmp\\un fichier de notes.txt") chemin absolu du fichier note
-    question2("C:\\tmp\\un fichier de notes.txt")  # chemin absolu du fichier note
+    #question2("C:\\tmp\\un fichier de notes.txt")  # chemin absolu du fichier note
+    etudiant=question2("C:\\tmp\\un fichier de notes.txt")
+    print(etudiant)
